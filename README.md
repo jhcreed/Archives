@@ -42,4 +42,12 @@ Contains hard copies of work from Gerke Lab
 	* Title : "Ancestry informative eQTLs in prostate tumor tissue: implications for observed cancer disparities"
 	* Presenter : Jordan Creed
 	* In : USF Research Day 2018, Tampa, FL
-		
+
+## Talks 
+
+* SciSymp2019_slides
+	* Title : Global ancestry estimation and data repository for the TCGA pan-cancer resource
+	* In : 2019 Moffitt Scientific Symposium, Tampa, FL
+* BioData2019_karyoploteR
+	* Title : Visualizing genomic data with karyoploteR
+	* In : June 2019 BioData Club meeting, Tampa, FL
