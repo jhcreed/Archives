@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1567774204414.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1623179874",
+    "id" : "53C7FE3F",
+    "lastKnownWriteTime" : 1567796994,
+    "last_content_update" : 1567796994607,
+    "path" : "~/Dropbox/talks/RLadies2019/maps_20190914.Rmd",
+    "project_path" : "maps_20190914.Rmd",
+    "properties" : {
+        "cursorPosition" : "15,17",
+        "scrollLine" : "11",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

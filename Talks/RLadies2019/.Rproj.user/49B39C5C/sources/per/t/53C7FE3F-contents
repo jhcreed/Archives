@@ -1,0 +1,45 @@
+---
+title: "R Ladies"
+author: "Jordan Creed"
+date: "9/14/2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<!-- ## denotes title of new slide -->
+
+## Packages to know 
+
+- maps : contain 
+- sf 
+- tidyverse/ggplot2
+
+```{r load_packages, echo = FALSE}
+library(tidyverse)
+library(maps)
+```
+
+## Data frames from outlines 
+
+- `maps` and `mapdata` packages provide basic outlines for common maps (e.g. county maps)
+- `map_data` from ggplot2 takes these outlines and returns a data frame
+
+```{r maps1}
+
+cnty <- ggplot2::map_data("county") # "county" comes from `maps`
+head(cnty) # only continental US - no alaska or hawaii
+
+base_p <- ggplot(subset(cnty,region=="florida"),aes(long,lat,group=group)) +
+  geom_polygon(aes(fill=as.factor(group)), show.legend = FALSE, colour=NA) 
+  
+base_p + coord_map("bonne",param=45)
+
+```
+
+
+
+## Tampa Bay R Users
+
