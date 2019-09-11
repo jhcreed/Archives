@@ -1,45 +1,133 @@
 ---
-title: "R Ladies"
+title: "Navigating Maps in R"
 author: "Jordan Creed"
 date: "9/14/2019"
 output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center")
 ```
 
 <!-- ## denotes title of new slide -->
 
 ## Packages to know 
 
-- maps : contain 
+- maps/mapdata
 - sf 
 - tidyverse/ggplot2
 
-```{r load_packages, echo = FALSE}
+```{r load_packages, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(maps)
+library(ggmap)
 ```
+
+# Quick Start
 
 ## Data frames from outlines 
 
 - `maps` and `mapdata` packages provide basic outlines for common maps (e.g. county maps)
-- `map_data` from ggplot2 takes these outlines and returns a data frame
+
+```{r maps_pack, fig.width=2, fig.height=2}
+cnty_list <- map('county', plot = FALSE)
+str(cnty_list)
+```
+
+## Data frames from outlines
+
+- `map_data` from ggplot2 takes these outlines and returns a data frame for plotting
 
 ```{r maps1}
-
 cnty <- ggplot2::map_data("county") # "county" comes from `maps`
 head(cnty) # only continental US - no alaska or hawaii
+```
 
-base_p <- ggplot(subset(cnty,region=="florida"),aes(long,lat,group=group)) +
-  geom_polygon(aes(fill=as.factor(group)), show.legend = FALSE, colour=NA) 
-  
-base_p + coord_map("bonne",param=45)
+## Basic plotting
+
+```{r base_map, fig.width=3.5, fig.height=3.5}
+
+base_p <- ggplot(subset(cnty,region=="florida"),
+                 aes(long,lat,group=group)) +
+  geom_polygon(aes(fill=as.factor(group)),
+               show.legend = FALSE, colour=NA)
+
+base_p
 
 ```
 
+## Map projections
 
+- how the world is mapped in 2D
+- more important as the area increases
+
+```{r coord_system, fig.width=4, fig.height=4}
+
+base_p + coord_map("bonne", param=45)
+
+```
+
+## Map zoom {.columns-2}
+
+Wrong:
+```{r zoom_wrong, fig.width=3, fig.height=3}
+base_p + 
+  xlim(-83, -82) + 
+  ylim(27,29)
+```
+
+
+Right:
+```{r zoom, fig.width=3, fig.height=3}
+base_p + 
+  coord_fixed(xlim = c(-83, -82),
+              ylim = c(27, 29))
+```
+
+## Additional geoms {.columns-2}
+
+```{r adding_f, fig.width=4, fig.height=4, echo=FALSE}
+
+random_points <- data.frame(lat = sample(cnty[cnty$region=="florida",]$lat,
+                                   20, replace = TRUE),
+                            lon = sample(cnty[cnty$region=="florida",]$long,
+                                   20, replace = TRUE))
+
+base_p + 
+  geom_point(data = random_points,
+             aes(x = lon,y = lat,
+                 group=1:20)) + 
+  geom_hline(yintercept = 28) + 
+  theme_classic() + 
+  ggtitle("nonsense points")
+
+```
+
+Normal plotting in ggplot but x is always longitude any y is always latitude
+```{r code, eval=FALSE}
+base_p + 
+  geom_point(data = random_points,
+             aes(x = lon,y = lat,
+                 group=1:20)) + 
+  geom_hline(yintercept = 28) + 
+  theme_classic() + 
+  ggtitle("nonsense points")
+```
+
+# sf package
+
+# Next level maps
+
+## 3D - rayshader 
+
+## Animated - gganimate
+
+# Thank You!
 
 ## Tampa Bay R Users
+
+<center>
+![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=500px}
+</center>
 
