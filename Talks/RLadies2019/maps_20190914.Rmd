@@ -117,6 +117,15 @@ base_p +
 
 # sf package
 
+## What is sf?
+
+- sf stands for simple features and is a standard for storing spatial geometry of features
+  - features are basically an object : it can be a tree or a whole forest
+  - geometry is where on Earth a feature is 
+- super popular in spatial databases
+    - GeoJSON
+    - GIS
+
 # Next level maps
 
 ## 3D - rayshader 
@@ -128,6 +137,6 @@ base_p +
 ## Tampa Bay R Users
 
 <center>
-![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=500px}
+![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=250px}
 </center>
 
