@@ -3,8 +3,16 @@ title: "Navigating Maps in R"
 subtitle: "R Ladies Tampa"  
 author: "Jordan Creed"
 date: "9/14/2019"
-output: ioslides_presentation
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
 ---
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_accent(base_color = "#43418A")
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
@@ -16,9 +24,14 @@ library(animation)
 ani.options(width=150, height=150)
 ```
 
-<!-- ## denotes title of new slide -->
+# Disclosure
 
-## Packages to know 
+- not a map expert
+- many other methods 
+
+---
+
+# Packages to know 
 
 - maps/mapdata
 - sf 
@@ -28,6 +41,7 @@ ani.options(width=150, height=150)
 
 - rayshader
 - gganimate 
+- mapview
 
 ```{r load_packages, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -36,9 +50,14 @@ library(ggmap)
 library(sf)
 library(rayshader)
 library(gganimate)
+library(mapview)
 ```
 
+---
+
 # Quick Start
+
+---
 
 ## Data frames from outlines 
 
@@ -49,6 +68,8 @@ cnty_list <- map('county', plot = FALSE)
 str(cnty_list)
 ```
 
+---
+
 ## Data frames from outlines
 
 - `map_data` from ggplot2 takes these outlines and returns a data frame for plotting
@@ -57,6 +78,8 @@ str(cnty_list)
 cnty <- ggplot2::map_data("county") # "county" comes from `maps`
 head(cnty) # only continental US - no alaska or hawaii
 ```
+
+---
 
 ## maps and ggplot
 
@@ -71,6 +94,8 @@ base_p
 
 ```
 
+---
+
 ## Map projections
 
 - how the world is mapped in 2D
@@ -82,25 +107,33 @@ base_p + coord_map("bonne", param=45)
 
 ```
 
-## Map zoom {.columns-2}
+---
 
+## Map zoom 
+
+.pull-left[
 Wrong:
 ```{r zoom_wrong, fig.width=3, fig.height=3}
 base_p + 
   xlim(-83, -82) + 
   ylim(27,29)
 ```
+]
 
-
+.pull-right[
 Right:
 ```{r zoom, fig.width=3, fig.height=3}
 base_p + 
   coord_fixed(xlim = c(-83, -82),
               ylim = c(27, 29))
 ```
+]
 
-## Additional geoms {.columns-2}
+---
 
+## Additional geoms 
+
+.pull-left[
 ```{r adding_f, fig.width=4, fig.height=4, echo=FALSE}
 
 random_points <- data.frame(lat = sample(cnty[cnty$region=="florida",]$lat,
@@ -117,7 +150,9 @@ base_p +
   ggtitle("nonsense points")
 
 ```
+]
 
+.pull-right[
 Normal plotting in ggplot but x is always longitude any y is always latitude
 ```{r adding_f_display, eval=FALSE}
 base_p + 
@@ -128,8 +163,13 @@ base_p +
   theme_classic() + 
   ggtitle("nonsense points")
 ```
+]
+
+---
 
 # sf package
+
+---
 
 ## What is sf?
 
@@ -141,6 +181,8 @@ base_p +
     - GIS
     
 <!-- add table containg common feature types? -->
+
+---
     
 ## Reading shapefiles (*.shp)
 
@@ -156,11 +198,13 @@ class(nc2)
 
 ```
 
-----
+---
 
 ```{r examine_shp}
 nc[1:5,]
 ```
+
+---
 
 ## sf and ggplot 
 
@@ -172,9 +216,13 @@ fig1 <- ggplot(nc) +
   theme_bw()
 ```
 
-![](figures/sf_ggplot.png)
+.center[![](figures/sf_ggplot.png)]
+
+---
 
 # Not your mother's maps
+
+---
 
 ## 3D - rayshader
 
@@ -189,8 +237,15 @@ render_snapshot()
 ```
 
 <center>
-![](figures/rayshader_static.png){width=50px}
+<img src="figures/rayshader_static.png" style="width:350px"/>
+<!-- ![](figures/rayshader_static.png){width=50px} -->
 </center>
+
+---
+
+.center[![](figures/rayshader_movie.gif)]
+
+---
 
 ## Animated - gganimate
 
@@ -202,17 +257,38 @@ animate(ggplot() +
   transition_states(GROUP,3,1), width = 400, height = 400)
 ```
 
-<center>
-![](figures/animated.gif)
-</center>
+.center[![](figures/animated.gif)]
 
-## ggmap
+---
+
+## scrolling maps - mapview
+
+```{r, fig.width=5, fig.height=5, warning=FALSE, fig.align="center"}
+
+nc %>% mapview::mapview(alpha=0.2)
+
+```
+
+---
+
+## map packages requiring API keys
+
+- ggmap
+  - alternative maps from google 
+  - satellite and street maps 
+- mapdeck
+  - 2.5D plotting
+
+---
 
 # Thank You!
+
+---
 
 ## Tampa Bay R Users
 
 <center>
-![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=50px}
+<img src="https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png" style="width:350px"/>
 </center>
+
 
