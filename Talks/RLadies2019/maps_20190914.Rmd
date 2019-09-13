@@ -1,5 +1,6 @@
 ---
 title: "Navigating Maps in R"
+subtitle: "R Ladies Tampa"  
 author: "Jordan Creed"
 date: "9/14/2019"
 output: ioslides_presentation
@@ -7,7 +8,12 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      fig.align = "center")
+                      fig.align = "center",
+                      tidy.opts=list(width.cutoff=80) #,
+                      # tidy=TRUE
+                      )
+library(animation)
+ani.options(width=150, height=150)
 ```
 
 <!-- ## denotes title of new slide -->
@@ -18,10 +24,18 @@ knitr::opts_chunk$set(echo = TRUE,
 - sf 
 - tidyverse/ggplot2
 
+**Fun packages**
+
+- rayshader
+- gganimate 
+
 ```{r load_packages, echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(maps)
 library(ggmap)
+library(sf)
+library(rayshader)
+library(gganimate)
 ```
 
 # Quick Start
@@ -39,12 +53,12 @@ str(cnty_list)
 
 - `map_data` from ggplot2 takes these outlines and returns a data frame for plotting
 
-```{r maps1}
+```{r maps_data}
 cnty <- ggplot2::map_data("county") # "county" comes from `maps`
 head(cnty) # only continental US - no alaska or hawaii
 ```
 
-## Basic plotting
+## maps and ggplot
 
 ```{r base_map, fig.width=3.5, fig.height=3.5}
 
@@ -105,7 +119,7 @@ base_p +
 ```
 
 Normal plotting in ggplot but x is always longitude any y is always latitude
-```{r code, eval=FALSE}
+```{r adding_f_display, eval=FALSE}
 base_p + 
   geom_point(data = random_points,
              aes(x = lon,y = lat,
@@ -125,18 +139,80 @@ base_p +
 - super popular in spatial databases
     - GeoJSON
     - GIS
+    
+<!-- add table containg common feature types? -->
+    
+## Reading shapefiles (*.shp)
 
-# Next level maps
+```{r import_shp}
 
-## 3D - rayshader 
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"),
+                  quiet = TRUE)
+class(nc)
+
+nc2 <- sf::read_sf(system.file("shape/nc.shp", package = "sf"),
+                   quiet = TRUE)
+class(nc2)
+
+```
+
+----
+
+```{r examine_shp}
+nc[1:5,]
+```
+
+## sf and ggplot 
+
+**Warning**: can be slow with large shapefiles
+
+```{r sf_plot, fig.width=4.5, fig.height=4.5}
+fig1 <- ggplot(nc) + 
+  geom_sf(aes(fill = AREA)) +
+  theme_bw()
+```
+
+![](figures/sf_ggplot.png)
+
+# Not your mother's maps
+
+## 3D - rayshader
+
+```{r 3dcreate, eval=FALSE}
+
+# create 3D image
+plot_gg(fig1)
+
+# static image of 3D project
+render_snapshot()
+
+```
+
+<center>
+![](figures/rayshader_static.png){width=50px}
+</center>
 
 ## Animated - gganimate
+
+```{r animate_code, fig.width=4.5, fig.height=4.5, eval=FALSE}
+nc$GROUP <- sample(1:4, nrow(nc), replace=TRUE)
+
+animate(ggplot() + 
+  geom_sf(data = nc, aes(fill=AREA)) +
+  transition_states(GROUP,3,1), width = 400, height = 400)
+```
+
+<center>
+![](figures/animated.gif)
+</center>
+
+## ggmap
 
 # Thank You!
 
 ## Tampa Bay R Users
 
 <center>
-![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=250px}
+![](https://github.com/TampaUseRs/TampaUseRs/raw/master/assets/hex-logo/trug-hex-800.png){width=50px}
 </center>
 
