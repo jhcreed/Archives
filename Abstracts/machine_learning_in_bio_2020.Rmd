@@ -1,0 +1,16 @@
+---
+title: 'Man vs Machines: making prognostic models'
+author: "JH Creed, CM Colin, TA Gerke"
+output:
+  word_document: default
+  html_document: default
+---
+
+**Background:** Predicting clinical endpoints is a vital domain in medical research and has traditionally been approached by researchers combining clinically important variables into some form of regression to predict outcomes. However in recent years, machine learning has been heralded in as the future of creating such prognostic models. 
+<!-- include blurb about machine earning models being less interpretable-->
+
+**Methods:** Utilizing data from Surveillance, Epidemiology, and End Results (SEER) and National Cancer Database (NCDB), we compared several man-made risk stratification tools for prostate cancer, D'Amico, National Institute for Health and Care Excellence (NICE) and the Cancer of the Prostate Risk Assessment (CAPRA) score, to those produced by common supervised machine learning methods, such as random forest. Each prognostic measure was compared against XX and the AUCs were calculated.  
+
+**Results:**
+
+**Conclusions:** 
