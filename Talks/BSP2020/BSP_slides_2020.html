@@ -4,24 +4,112 @@
     <title>mediator</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jordan Creed" />
-    <meta name="date" content="2020-02-28" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-# mediator
-## Best Statistical Practices 2020
-### Jordan Creed
-### 02/28/2020
+
+
+
+
+
+class: center middle hide-count hide-logo
+background-image: url(figures/moffittlogo.png) 
+background-size: 22%
+background-position: bottom 5% right 5%
+
+&lt;div class="talk-logo"&gt;&lt;/div&gt;
+
+.talk-meta[
+  .talk-title[# mediator &lt;br&gt; &lt;br&gt; .smaller[an R package for conducting &lt;br&gt; causal mediation analyses]]
+
+  .talk-author[Jordan Creed]
+  
+  .talk-date[&lt;img src="figures/twitter_logo.svg" alt="Twitter logo" width="24px"/&gt; @jhcreed]
+]
 
 ---
 
+## Mediation analysis
+
+Examines an exposure and outcome through an intermediate variable (mediator) 
+
+Causal relationship 
++ Understanding the mechanics behind an association 
++ NOT prediction
+    
+Estimate the direct and indirect effects 
+
+.w-50.h-center[
+![](figures/basic_example_dag.png)
+]
+
+---
+
+## Intro to DAGs
+
+---
+
+## Is it a mediator or a confounder? 
+
+&lt;!-- example of JAMA paper with bad mediator --&gt;
+
+--- 
+
+## Baron and Kenny but more ...
+
+&lt;style type="text/css"&gt;
+.talk-logo {
+  width: 480px;
+  height: 556px;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  background-image: url('figures/mediator_hex.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.talk-meta {
+  #font-family: Overpass;
+  position: absolute;
+  text-align: left;
+  bottom: 10px;
+  left: 25px;
+}
+.talk-author {
+  color: #444;
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 1em;
+}
+.talk-date {
+  color: #666;
+  font-size: 1.25em;
+  line-height: 0;
+}
+.hide-count .remark-slide-number {
+  display: none;
+}
+
+# sizing 
+.w-50 {
+  width: 50%;
+}
+.h-center {
+  margin: 0 auto;
+}
+&lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create();
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
@@ -60,7 +148,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
