@@ -30,11 +30,12 @@ knitr::opts_chunk$set(
 )
 
 xaringanExtra::use_xaringan_extra(c("animate_css", "text_poster", "panelset"))
+xaringanExtra::use_tachyons()
 ```
 
 class: center middle hide-count hide-logo
 background-image: url(figures/moffittlogo.png) 
-background-size: 22%
+background-size: 15%
 background-position: bottom 5% right 5%
 
 <div class="talk-logo"></div>
@@ -59,23 +60,70 @@ Causal relationship
     
 Estimate the direct and indirect effects 
 
-.w-50.h-center[
+.h-center[
 ![](figures/basic_example_dag.png)
 ]
 
 ---
 
-## Intro to DAGs
+## Diected Acyclic Graphs (DAGs)
+
+.w-75.h-center[
+![](figures/example_dag_2.png)
+]
+
+DAGs contain variables of interest and common causes
+
+Time ordered 
+
+Quickly assess assocations between variables 
+
+Rules for reading DAGs 
++ .accent-blue[ Modern Epidemiology - Chapter 12 ]
++ .accent-blue[ Causal Inference - https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/ ] 
 
 ---
 
-## Is it a mediator or a confounder? 
+## Classic mediation analysis
+
+Baron and Kenny aka the product method 
++ https://www.sesp.org/files/The%20Moderator-Baron.pdf
++ Over 90,000 citations 
+
+Criteria to be a mediator: 
++ Changing the exposure change the mediator (Race -> Access/ QoC) 
++ The mediator affect the outcome (Access / Qoc -> Lethal outcomes)
++ Changing the exposure change the outcome .accent-blue[ (... unless the indirect and direct effects cancel out) ]
++ After controlling for the mediator, the previously significant relationship between the exposure and the outcome is no longer significant .accent-blue[ (... unless it partial mediaton) ]
+
+Limitation : Does not accommodate exposure-mediator interactions
+
+---
+class: center middle methods-title
+
+`r xaringanExtra::text_poster(
+  "Causal 
+  Inference 
+  Methods",
+  width = "90%",
+  height = "80%"
+)`
+
+```{css echo=FALSE}
+.strive-to-recruit .text-poster .line-container {
+  color: #000000;
+}
+.methods-title {
+  background: #87CEEB;
+}
+```
+
+---
+
+## Mediator != confounder
 
 <!-- example of JAMA paper with bad mediator -->
 
---- 
-
-## Baron and Kenny but more ...
 
 ```{css, echo=FALSE}
 .talk-logo {
@@ -114,7 +162,19 @@ Estimate the direct and indirect effects
 .w-50 {
   width: 50%;
 }
+.w-75 {
+  width: 75%;
+}
 .h-center {
   margin: 0 auto;
 }
+
+# colors
+.accent-orange { 
+  color: "#F09749"; 
+}
+.accent-blue { 
+  color: skyblue; 
+}
+
 ```

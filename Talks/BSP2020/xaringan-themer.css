@@ -26,12 +26,12 @@
 body {
   font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
   font-weight: normal;
-  color: #272822;
+  color: #000000;
 }
 h1, h2, h3 {
   font-family: 'Yanone Kaffeesatz';
   font-weight: normal;
-  color: skyblue;
+  color: #F09749;
 }
 .remark-slide-content {
   background-color: #FFFFFF;
@@ -54,17 +54,17 @@ h1, h2, h3 {
   font-size: 0.9em;
 }
 .remark-inline-code {
-  color: skyblue;
+  color: #F09749;
   font-size: 1em;
 }
 .remark-slide-number {
-  color: skyblue;
+  color: #F09749;
   opacity: 1;
   font-size: 0.9em;
 }
-strong { color: skyblue; }
+strong { color: #F09749; }
 a, a > code {
-  color: skyblue;
+  color: #F09749;
   text-decoration: none;
 }
 .footnote {
@@ -79,17 +79,17 @@ a, a > code {
 }
 .inverse {
   background-color: skyblue;
-  color: #FFFFFF;
+  color: #000000;
   
 }
 .inverse h1, .inverse h2, .inverse h3 {
-  color: #FFFFFF;
+  color: #000000;
 }
 .title-slide, .title-slide h1, .title-slide h2, .title-slide h3 {
-  color: #FFFFFF;
+  color: #000000;
 }
 .title-slide {
-  background-color: skyblue;
+  background-color: #F09749;
   
   
   
@@ -104,10 +104,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: skyblue99;
+  color: #F0974999;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: skyblue;
+  color: #F09749;
 }
 .right-column {
   width: 75%;
@@ -144,26 +144,26 @@ th, td {
   padding: 5px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #DBF0F9;
+  background: #ABDCF1;
 }
 table.dataTable tbody {
   background-color: #FFFFFF;
-  color: #272822;
+  color: #000000;
 }
 table.dataTable.display tbody tr.odd {
   background-color: #FFFFFF;
 }
 table.dataTable.display tbody tr.even {
-  background-color: #DBF0F9;
+  background-color: #ABDCF1;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
-  color: #272822;
+  color: #000000;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  color: #272822 !important;
+  color: #000000 !important;
 }
 
 /* Slide Header Background for h1 elements */
@@ -173,7 +173,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   top: 0;
   left: 0;
   width: 100%;
-  background: skyblue;
+  background: #F09749;
   color: #FFFFFF;
   padding: 2rem 4rem 1.5rem 4rem;
   margin-top: 0;

@@ -4,6 +4,13 @@
     <title>mediator</title>
     <meta charset="utf-8" />
     <meta name="author" content="Jordan Creed" />
+    <link href="libs/animate.css-3.7.2/animate.xaringan.css" rel="stylesheet" />
+    <link href="libs/panelset-0.0.13/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.0.13/panelset.js"></script>
+    <link href="libs/tachyons-4.11.1/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/text-poster-1.0.1/text-poster.css" rel="stylesheet" />
+    <script src="libs/text-poster-1.0.1/text-poster.js"></script>
+    <script src="libs/text-poster-1.0.1/text-poster-init.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -16,7 +23,7 @@
 
 class: center middle hide-count hide-logo
 background-image: url(figures/moffittlogo.png) 
-background-size: 22%
+background-size: 15%
 background-position: bottom 5% right 5%
 
 &lt;div class="talk-logo"&gt;&lt;/div&gt;
@@ -41,23 +48,66 @@ Causal relationship
     
 Estimate the direct and indirect effects 
 
-.w-50.h-center[
+.h-center[
 ![](figures/basic_example_dag.png)
 ]
 
 ---
 
-## Intro to DAGs
+## Diected Acyclic Graphs (DAGs)
+
+.w-75.h-center[
+![](figures/example_dag_2.png)
+]
+
+DAGs contain variables of interest and common causes
+
+Time ordered 
+
+Quickly assess assocations between variables 
+
+Rules for reading DAGs 
++ .accent-blue[ Modern Epidemiology - Chapter 12 ]
++ .accent-blue[ Causal Inference - https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/ ] 
 
 ---
 
-## Is it a mediator or a confounder? 
+## Classic mediation analysis
+
+Baron and Kenny aka the product method 
++ https://www.sesp.org/files/The%20Moderator-Baron.pdf
++ Over 90,000 citations 
+
+Criteria to be a mediator: 
++ Changing the exposure change the mediator (Race -&gt; Access/ QoC) 
++ The mediator affect the outcome (Access / Qoc -&gt; Lethal outcomes)
++ Changing the exposure change the outcome .accent-blue[ (... unless the indirect and direct effects cancel out) ]
++ After controlling for the mediator, the previously significant relationship between the exposure and the outcome is no longer significant .accent-blue[ (... unless it partial mediaton) ]
+
+Limitation : Does not accommodate exposure-mediator interactions
+
+---
+class: center middle methods-title
+
+<div class="text-poster" style="width:90%;height:80%;padding:1em;">
+<div class="text-poster__text" data-text="Causal &#10;  Inference &#10;  Methods"></div>
+</div>
+
+&lt;style type="text/css"&gt;
+.strive-to-recruit .text-poster .line-container {
+  color: #000000;
+}
+.methods-title {
+  background: #87CEEB;
+}
+&lt;/style&gt;
+
+---
+
+## Mediator != confounder
 
 &lt;!-- example of JAMA paper with bad mediator --&gt;
 
---- 
-
-## Baron and Kenny but more ...
 
 &lt;style type="text/css"&gt;
 .talk-logo {
@@ -96,9 +146,21 @@ Estimate the direct and indirect effects
 .w-50 {
   width: 50%;
 }
+.w-75 {
+  width: 75%;
+}
 .h-center {
   margin: 0 auto;
 }
+
+# colors
+.accent-orange { 
+  color: "#F09749"; 
+}
+.accent-blue { 
+  color: skyblue; 
+}
+
 &lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
