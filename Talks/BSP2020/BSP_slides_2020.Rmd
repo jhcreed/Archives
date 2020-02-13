@@ -93,10 +93,27 @@ Baron and Kenny aka the product method
 Criteria to be a mediator: 
 + Changing the exposure change the mediator (Race -> Access/ QoC) 
 + The mediator affect the outcome (Access / Qoc -> Lethal outcomes)
-+ Changing the exposure change the outcome .accent-blue[ (... unless the indirect and direct effects cancel out) ]
-+ After controlling for the mediator, the previously significant relationship between the exposure and the outcome is no longer significant .accent-blue[ (... unless it partial mediaton) ]
++ Changing the exposure change the outcome .accent-blue[ ( `r emo::ji("grimacing")` unless the indirect and direct effects cancel out) ]
++ After controlling for the mediator, the previously significant relationship between the exposure and the outcome is no longer significant .accent-blue[ ( `r emo::ji("grimacing")` unless it partial mediaton) ]
 
-Limitation : Does not accommodate exposure-mediator interactions
+---
+
+## Baron and Kenny approach 
+
+If .accent-orange[X] is the exposure, .accent-orange[ Y ] the outcome, .accent-orange[ M ] the mediator and .accent-orange[ C ] the covariates
++ Y and M are continuous
+    
+Step 1: Fit E[M] = $\beta_{0}$ + $\beta_{1} a$ + $\beta_{2} c$
+
+Step 2: Fit E[Y] = $\theta_{0}$ + $\theta_{1} a$ + $\theta_{2} m$ + $\theta_{4} c$
+
+Direct effect = $\theta_{1} a$
++ Direct effect is the exposure effect on the outcome at a fixed level of the mediator
+
+Indirect effect = $\theta_{2} \beta_{1}$
++ Indirect effect is the effect on the outcome of changes of the exposure which operate through the mediator
+
+`r emo::ji("point_right")` .accent-blue[Does not accommodate exposure-mediator interactions]
 
 ---
 class: center middle methods-title
@@ -110,13 +127,38 @@ class: center middle methods-title
 )`
 
 ```{css echo=FALSE}
-.strive-to-recruit .text-poster .line-container {
-  color: #000000;
-}
+# .strive-to-recruit .text-poster .line-container {
+#   color: #000000;
+# }
 .methods-title {
   background: #87CEEB;
 }
 ```
+
+---
+
+## Allowing exposure-mediator interactions
+
+Step 1: Fit E[M] = $\beta_{0} + \beta_{1} a + \beta_{2} c$ 
++ .accent-blue[same as previously]
+
+Step 2: Fit E[Y] = $\theta_{0} + \theta_{1} a + \theta_{2} m + \theta_{3} am + \theta_{4} c$
+
+.accent-blue[Assuming a binary exposure changing level a^*^ = 0 to a = 1]
+
+
+
+> Controlled direct effect = $( \theta_{0} + \theta_{3} m)(a - a^{*})$
+
+> Natural indirect effect = $\{ \theta_{0} + \theta_{3} ( \beta_{0} + \beta_{1} a^{*} + \beta_{2} c) \}(a - a^{*})$
+
+> Natural indirect effect = $( \theta_{2} \beta_{1} + \theta_{3} \beta_{1}a) (a - a^{*})$
+
+
+
+`r emo::ji("point_right")` When no exposure-mediator interaction is present, $\theta_{3}$ = 0
++ CDE = NDE = $\theta_{1}$ and NIE = $\theta_{2} \beta_{1}$
++ .accent-blue[Same as the direct and indirect effects in Baron and Kenny]
 
 ---
 
@@ -170,8 +212,12 @@ class: center middle methods-title
 }
 
 # colors
+
+.accent-other { 
+  color: light brilliant orange,
+}
 .accent-orange { 
-  color: "#F09749"; 
+  color: #f09749; 
 }
 .accent-blue { 
   color: skyblue; 
