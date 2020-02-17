@@ -219,6 +219,10 @@ Calculates point estimates and 95% CIs
 
 ---
 
+# SAS,STATA and R Oh My!
+
+---
+
 ## Package it!
 
 ---
