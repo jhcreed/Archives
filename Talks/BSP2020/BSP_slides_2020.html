@@ -11,6 +11,7 @@
     <link href="libs/text-poster-1.0.1/text-poster.css" rel="stylesheet" />
     <script src="libs/text-poster-1.0.1/text-poster.js"></script>
     <script src="libs/text-poster-1.0.1/text-poster-init.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -184,26 +185,144 @@ Mediator: on the causal pathway
 
 ---
 
-## mediator 
+## mediator - https://github.com/GerkeLab/mediator
 
-.pull_left[
-R package for conducting causal mediation analysis
-
-Calculates point estimates and 95% CIs
-
+.h-center[
+&lt;img src="figures/mediator_github_page.png"&gt;
 ]
 
----
+??? 
 
-## Installation
-
----
-
-## mediator : quick start
+Explain the goals for the package, its outputs and installation
 
 ---
 
-# SAS,STATA and R Oh My!
+# mediator - quick start 
+
+Required arguments 
++ `data = ` the data for performing the analysis 
++ `out.model = ` fitted model object for the outcome
+    + `glm`, `lm` or `coxph`
++ `med.model = ` fitted model object for the mediator
+    + `glm` or `lm`
++ `treat = ` character string indicating the name of the treatment/exposure variable
+
+Default arguments
++ `a = ` numeric value indicating the exposure level
+    + default = 1
++ `a_star = ` numeric value indicating the compared exposure level
+    + default = 0
++ `m = ` numeric value indicating the level of the mediator
+    + default = 1
++ `boot_rep = ` numeric value indicating the number of repetitions to use when utalizing bootstrap to calculate confidence intervals
+    + deault = 0 (Delta method)
+   
+---
+
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
+
+```r
+library(mediator)
+library(tidyverse)
+library(survival)
+
+load("~/Documents/github/TCGAclinical/data/clinical_survival_pancancer_atlas.RData")
+
+dat %&gt;% 
+  filter(acronym == "PAAD") %&gt;% 
+  # do some data cleaning here ...
+  mediator(out.model = coxph(Surv(OS.time,OS) ~ gender_binary + ever_smoker + 
+                             age_at_initial_pathologic_diagnosis + 
+                             histological_grade + gender_binary*ever_smoker,
+                           data = .),
+           med.model = glm(ever_smoker ~ gender_binary + 
+                           age_at_initial_pathologic_diagnosis + histological_grade,
+                           data = .,
+                           family = "binomial"),
+           treat = "gender_binary" )
+```
+
+.footnote.pull-left[Full code available at: https://github.com/GerkeLab/mediator/blob/master/man/bsp2020/abstract.Rmd]
+---
+
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;color: black !important;background-color: skyblue !important;text-align: center;"&gt; Effect &lt;/th&gt;
+   &lt;th style="text-align:right;color: black !important;background-color: skyblue !important;text-align: center;"&gt; Estimate &lt;/th&gt;
+   &lt;th style="text-align:left;color: black !important;background-color: skyblue !important;text-align: center;"&gt; Lower 95% CI &lt;/th&gt;
+   &lt;th style="text-align:left;color: black !important;background-color: skyblue !important;text-align: center;"&gt; Upper 95% CI &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; CDE &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.79142 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.39887 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 1.57028 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; NDE &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.80390 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.50599 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 1.27721 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; NIE &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.97569 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.87098 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 1.09298 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; Total Effect &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.78436 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.5008 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; 1.22848 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt; Proportion Mediated &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: white !important;text-align: center;"&gt; 0.09064 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: white !important;text-align: center;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+👉 The number of potential estimates for the CDE is equal to the number of levels that the mediator can take  
++ CDE of male sex compared to female sex when forcing smoking status as never smokers is 0.79
++ CDE of male sex compared to female sex when forcing smoking status as previous or current smoker is 0.82
+
+.footnote.pull-left[Full code available at: https://github.com/GerkeLab/mediator/blob/master/man/bsp2020/abstract.Rmd]
+
+---
+
+## output DAGs if I can get that to work in time ...
+
+---
+
+## SAS, STATA and R - Oh My!
+
+`mediator` is the sister program of `%mediator` the SAS/SPSS macro developed by Valeri and VanderWeele 
+
+Confidence Intervals 
++ `%mediator` uses hard coded `1.96` and `-1.96` while `mediator` uses  `c(-1,1)*qnorm(.975)` for the Delta method
++ during bootstrapping, `%mediator` bootstraps effect estimates and CIs while `mediator` only bootstraps the CIs
++ minor differences due to rounding 
+    
+Speed differences 
++ `mediator` up to 1000x faster than `%mediator` when using bootstrapping
+
+Covariates
++ `%mediator` uses dummy variables for multi-level factors while `mediator` allows multi-level and character variables in models 
+
+`mediation` package
++ different set of terminology 
++ different estimation approach
 
 ---
 
