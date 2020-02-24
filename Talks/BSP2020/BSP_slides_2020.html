@@ -39,8 +39,6 @@ background-position: bottom 5% right 5%
 
 ???
 
-Good afternoon everyone, today I am going to talk to you all about an R package my lab, Gerke Lab, here at Moffitt, has been working on for awhile called mediator, which was designed to perform causal mediation analysis.
-
 ---
 
 ## Mediation analysis
@@ -57,9 +55,6 @@ Estimate the direct and indirect effects
 ![](figures/basic_example_dag.png)
 ]
 
-???
-
-But before we jump in too deep, I am going to start with the basics - simply what is mediation analysis. Mediation analysis aims to examine the relationship between an exposure or a treatment and an outcome through a third variable called the mediator variable. The purpose of mediation analysis is to examine the causal relationships and to understand the underlying mechanisms, it's purpose is not to see how to build the best predicition model. The goal of mediation analysis is to estimate the   
 
 ---
 
@@ -224,7 +219,20 @@ Default arguments
     + default = 1
 + `boot_rep = ` numeric value indicating the number of repetitions to use when utalizing bootstrap to calculate confidence intervals
     + deault = 0 (Delta method)
-   
+    
+---
+
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
++ Smoking is more prevalent in males than females 
++ Males have higher incidence and death rates for pancreatic cancer than females
++ Tobacco smoking the only established modifiable risk factor for pancreatic cancer
+
+
+.h-center[
+![](figures/results_dag.png)
+]
+
 ---
 
 ## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
@@ -309,6 +317,48 @@ dat %&gt;%
 
 ---
 
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
+NDE:  the effect of the exposure (male sex) on the outcome (overall survival) if the pathway from the exposure to the mediator (smoking status) was removed
++ HR for male sex compared to female sex, when each individuals level of smoking is kept at the level it would take in the absence of sex, is 0.80 (0.51-1.28)
+
+&lt;br&gt;
+
+.h-center[
+![](figures/results_dag_nde.png)
+]
+
+
+---
+
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
+NIE: the effect of the exposure (male sex) that operates by changing the mediator (smoking status)
++ HR for male sex, if smoking status was changed from the level it would take if sex was female to the level if sex was male, is 0.98 (0.87-1.09)
+
+
+&lt;br&gt;
+
+.h-center[
+![](figures/results_dag_nie.png)
+]
+
+
+---
+
+## Is the effect of sex on overall survival mediated through smoking status in pancreatic cancer ...
+
+TE:  the overall effect of the exposure (male sex) on the outcome (overall survival)
++ HR for male sex compared to female sex overall is 0.78 (0.50-1.23)
+
+&lt;br&gt;
+
+.h-center[
+![](figures/results_dag_te.png)
+]
+
+---
+
 ## SAS, STATA and R - Oh My!
 
 `mediator` is the sister program of `%mediator` the SAS/SPSS macro developed by Valeri and VanderWeele 
@@ -337,12 +387,32 @@ Easy to share and implement new methods
 R packages are more than just a bundle of code : tests, data, documentation, ...
 
 .h-center[
-&lt;img src="figures/edited_equation.png"&gt;
+&lt;img src="figures/edited_equation.png"&gt; 
 ]
 
 ---
 
 ## GitHub
+
+.h-center[
+&lt;img src="figures/mediator_github_page_edit1.png"&gt; 
+]
+
+---
+
+## GitHub
+
+.h-center[
+&lt;img src="figures/travis_screen_shot.png"&gt; 
+]
+
+---
+
+## GitHub
+
+.h-center[
+&lt;img src="figures/codecov_screen_shot.png"&gt; 
+]
 
 ---
 
